@@ -1,0 +1,18 @@
+﻿@model QuestionEntity;
+
+@{
+    ViewData["Title"] = "Exam";
+
+    var imageUrl = string.IsNullOrEmpty(Model.Image) 
+    ? "NoImage.png" : Model.Image + ".png";
+}
+
+<img src="/Images/@imageUrl" style="height:300px; width:300px;"/>
+
+<h1>@Model.Question</h1>
+
+    @foreach (var choice in Model.Choices!)
+    {
+        <h4>@choice.Text</h4>
+    }
+

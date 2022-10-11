@@ -1,0 +1,40 @@
+﻿@model QuestionEntity;
+
+@{
+    var ticket = (Ticket)ViewBag.Ticket;
+
+    ViewData["Title"] = "Ticket" + ticket.Id;
+
+    var imageUrl = string.IsNullOrEmpty(Model.Image)
+    ? "NoImage.png" : Model.Image + ".png";
+}
+    @for (int i = ticket.FromIndex; i < ticket.FromIndex + ticket.QuestionsCount; i++)
+    {
+    var btnIndex = i - ticket.FromIndex + 1;
+
+    var questionIndexColor = i == Model.Id ? "btn btn-primary" : "btn btn-secondary";
+
+    <a class="@questionIndexColor"
+   asp-action="Exam" asp-route-ticketId="@ticket.Id" 
+        asp-route-questionId="@i">@btnIndex</a>
+    }
+
+<br />
+<img src="/Images/@imageUrl" class="w-25 mt-5" />
+
+<h3>@Model.Question</h3>
+
+@foreach (var choice in Model.Choices!)
+{
+    var _modul = "btn btn-primary";
+    if (choice.Id == ViewBag.ChoiceId)
+    {
+        _modul = ViewBag.Answer == true ? "btn btn-success" : "btn btn-danger";
+    }
+
+    <a asp-action="Exam" asp-route-ticketId="@ticket.Id" 
+    asp-route-questionId="@Model.Id"
+    asp-route-choiceId="@choice.Id"
+    class="@_modul" style="margin-bottom:5px">@choice.Text</a><br />
+    
+}

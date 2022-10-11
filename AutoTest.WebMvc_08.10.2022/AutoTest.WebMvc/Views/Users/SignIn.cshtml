@@ -1,0 +1,12 @@
+﻿<h2 class="text-center">Tizimga kirish</h2>
+
+<div class="d-flex justify-content-center">
+    <form asp-action="SignInPost" class="mb-3 w-25" method="post">
+        <label for="PhoneNumber" class="form-label">PhoneNumber</label>
+        <input class="form-control" type="text" id="PhoneNumber" name="Phone" placeholder="PhoneNumber" />
+        <label for="Password" class="form-label">Password</label>
+        <input class="form-control" type="password" id="Password" name="Password" placeholder="Password" /><br />
+        <input class="form-control btn btn-primary" type="submit" value="Sign In" />
+        <a asp-action="SignUp" class="form-control btn btn-primary" style="margin-top:5px">Sign Up</a>
+    </form>
+</div>
