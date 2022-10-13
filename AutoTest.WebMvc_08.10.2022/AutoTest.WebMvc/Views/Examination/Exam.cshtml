@@ -7,12 +7,23 @@
 
     var imageUrl = string.IsNullOrEmpty(Model.Image)
     ? "NoImage.png" : Model.Image + ".png";
-}
-    @for (int i = ticket.FromIndex; i < ticket.FromIndex + ticket.QuestionsCount; i++)
-    {
-    var btnIndex = i - ticket.FromIndex + 1;
 
+    var ticketData = (List<TicketData>)ViewBag.TicketData;
+
+    
+}
+
+    @for (var i = ticket.FromIndex; i < ticket.FromIndex + ticket.QuestionsCount; i++)
+    {
+       var btnIndex = i - ticket.FromIndex + 1;
     var questionIndexColor = i == Model.Id ? "btn btn-primary" : "btn btn-secondary";
+
+    var questionData = ticketData.FirstOrDefault(q => q.QuestionId == i);
+
+    if (questionData != null)
+    {
+        questionIndexColor = questionData.Answer == true ? "btn btn-success" : "btn btn-danger";
+    }
 
     <a class="@questionIndexColor"
    asp-action="Exam" asp-route-ticketId="@ticket.Id" 
@@ -22,7 +33,12 @@
 <br />
 <img src="/Images/@imageUrl" class="w-25 mt-5" />
 
-<h3>@Model.Question</h3>
+@{
+    int index = 1;
+
+    var qIndex = (Model.Id - ticket.FromIndex) + 1;
+}
+<h3>@qIndex.  @Model.Question</h3>
 
 @foreach (var choice in Model.Choices!)
 {
@@ -35,6 +51,7 @@
     <a asp-action="Exam" asp-route-ticketId="@ticket.Id" 
     asp-route-questionId="@Model.Id"
     asp-route-choiceId="@choice.Id"
-    class="@_modul" style="margin-bottom:5px">@choice.Text</a><br />
+    class="@_modul" style="margin-bottom:5px">@index.  @choice.Text</a><br />
     
+    index++;
 }

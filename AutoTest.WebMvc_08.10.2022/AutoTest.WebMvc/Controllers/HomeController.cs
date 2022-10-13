@@ -1,32 +1,37 @@
 ﻿using AutoTest.WebMvc.Models;
+using AutoTest.WebMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace AutoTest.WebMvc.Controllers
+namespace AutoTest.WebMvc.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private UsersServices _usersServices;
+
+    public HomeController()
     {
-        private readonly ILogger<HomeController> _logger;
+        _usersServices = new UsersServices();
+    }
+    public IActionResult Index()
+    {
+        var islogin = true;
+        var user = _usersServices.GetUserFromCookie(HttpContext);
+        if (user == null)
+            islogin = false;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        ViewBag.IsLogin = islogin;
+        return View();
+    }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+    public IActionResult Privacy()
+    {
+        return View();
+    }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

@@ -288,11 +288,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\AutoTest.WebMvc.csproj",
+      "projectUniqueName": "D:\\Github\\AutoTest\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\AutoTest.WebMvc.csproj",
       "projectName": "AutoTest.WebMvc",
-      "projectPath": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\AutoTest.WebMvc.csproj",
+      "projectPath": "D:\\Github\\AutoTest\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\AutoTest.WebMvc.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\obj\\",
+      "outputPath": "D:\\Github\\AutoTest\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

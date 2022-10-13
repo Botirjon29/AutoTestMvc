@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yvySC/Q3nuswfZQ6WUQwSOcFvfm1+pW6On06Wzfyz6kIexfFinMYB8QAe4cRZeYU51Cld/B9ot38TFW/G5G/LA==",
+  "dgSpecHash": "TGGOWLPyAwwwAPE3co01ZRimGVoEbHsCEsn4eeSKCr+ftcsBTEIn0LOLTsmOoCarGLJroCES27oVbdezuuWCcQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\AutoTest.WebMvc.csproj",
+  "projectFilePath": "D:\\Github\\AutoTest\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\AutoTest.WebMvc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.data.sqlite\\6.0.9\\microsoft.data.sqlite.6.0.9.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.9\\microsoft.data.sqlite.core.6.0.9.nupkg.sha512",

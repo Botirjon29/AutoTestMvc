@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "iiUPrBNBqBNElf1BoMT7oAWGOYjFW0RBc/N2aNjMToQ=",
+  "Hash": "cV334FqGek00KQiQozT2F92CjGuA23IfDFGF1cIDDBM=",
   "Source": "AutoTest.WebMvc",
   "BasePath": "_content/AutoTest.WebMvc",
   "Mode": "Default",
@@ -7852,6 +7852,57 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\wwwroot\\Profile\\d21b039773ac41caa111615b1a3e90f9.jpg",
+      "SourceId": "AutoTest.WebMvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\wwwroot\\",
+      "BasePath": "_content/AutoTest.WebMvc",
+      "RelativePath": "Profile/d21b039773ac41caa111615b1a3e90f9.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Profile\\d21b039773ac41caa111615b1a3e90f9.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\wwwroot\\Profile\\dotnet.jpg",
+      "SourceId": "AutoTest.WebMvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\wwwroot\\",
+      "BasePath": "_content/AutoTest.WebMvc",
+      "RelativePath": "Profile/dotnet.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Profile\\dotnet.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\wwwroot\\Profile\\NoImage.png",
+      "SourceId": "AutoTest.WebMvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\Projects\\AutoTest.WebMvc_08.10.2022\\AutoTest.WebMvc\\wwwroot\\",
+      "BasePath": "_content/AutoTest.WebMvc",
+      "RelativePath": "Profile/NoImage.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Profile\\NoImage.png"
     }
   ]
 }

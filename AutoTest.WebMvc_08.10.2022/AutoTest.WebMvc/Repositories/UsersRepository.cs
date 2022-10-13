@@ -26,17 +26,18 @@ public class UsersRepository
     public void CreateUsersTable()
     {
         _command.CommandText = "CREATE TABLE IF NOT EXISTS Users(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "name TEXT, phone TEXT, password TEXT)";
+            "name TEXT, phone TEXT, password TEXT, image TEXT)";
         _command.ExecuteNonQuery();
     }
 
     public void InsertUser(User user)
     {
-        _command.CommandText = "INSERT INTO Users(name, phone, password)" +
-            "VALUES(@n, @ph, @p)";
+        _command.CommandText = "INSERT INTO Users(name, phone, password, image)" +
+            "VALUES(@n, @ph, @p, @i)";
         _command.Parameters.AddWithValue("@n", user.Name);
         _command.Parameters.AddWithValue("@ph", user.Phone);
         _command.Parameters.AddWithValue("@p", user.Password);
+        _command.Parameters.AddWithValue("@i", user.Image);
         _command.Prepare();
 
         
@@ -57,6 +58,7 @@ public class UsersRepository
                 Id = data.GetInt32(0),
                 Name = data.GetString(1),
                 Phone = data.GetString(2),
+                Image = data.GetString(4),
             };
 
             users.Add(user);
@@ -95,6 +97,7 @@ public class UsersRepository
             user.Name = data.GetString(1);
             user.Phone = data.GetString(2);
             user.Password = data.GetString(3);
+            user.Image = data.GetString(4);
         }
         return user;
     }
@@ -109,11 +112,12 @@ public class UsersRepository
 
     public void UpdateUser(User user)
     {
-        _command.CommandText = "UPDATE Users SET name = @n, phone = @ph, password = @p WHERE id = @i";
+        _command.CommandText = "UPDATE Users SET name = @n, phone = @ph, password = @p, image = @im WHERE id = @i";
         _command.Parameters.AddWithValue("@n", user.Name);
         _command.Parameters.AddWithValue("@ph", user.Phone);
         _command.Parameters.AddWithValue("@p", user.Password);
-        _command.Parameters.AddWithValue("@i", user.Id);
+        _command.Parameters.AddWithValue("@im", user.Image);
+        _command.Parameters.AddWithValue("@i", user.Id); 
         _command.Prepare();
 
         _command.ExecuteNonQuery();

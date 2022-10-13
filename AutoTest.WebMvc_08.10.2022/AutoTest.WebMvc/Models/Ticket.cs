@@ -7,6 +7,7 @@ public class Ticket
     public int FromIndex { get; set; }
     public int QuestionsCount { get; set; }
     public int CorrectCount { get; set; }
+    public bool IsTraining { get; set; }
 
     public Ticket()
     {

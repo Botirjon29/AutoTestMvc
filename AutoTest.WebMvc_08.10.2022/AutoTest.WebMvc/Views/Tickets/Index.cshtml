@@ -1,0 +1,18 @@
+﻿@model List<Ticket>;
+
+
+    @{
+        ViewData["Title"] = "Tickets";
+    }
+
+    <div class="text-center">
+    <h1>Tickets</h1>
+</div>
+
+    @for(var i = 0; i < Model.Count; i++)
+    {
+        var ticketName = $"Ticket {i + 1} {Model[i].CorrectCount}/{Model[i].QuestionsCount}";
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary m-1" asp-controller="Examination" asp-action="Exam" asp-route-ticketId="@Model[i].Id">@ticketName</a><br />
+    </div>
+    }

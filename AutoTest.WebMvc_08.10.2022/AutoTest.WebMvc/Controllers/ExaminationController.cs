@@ -3,79 +3,118 @@ using AutoTest.WebMvc.Repositories;
 using AutoTest.WebMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AutoTest.WebMvc.Controllers
+namespace AutoTest.WebMvc.Controllers;
+
+public class ExaminationController : Controller
 {
-    public class ExaminationController : Controller
+    private readonly QuestionRepository _questionRepository;
+    private readonly UsersServices _usersServices;
+    private readonly TicketsRepository _ticketsRepository;
+
+    private const int ticketQuestionsCount = 20;
+    public ExaminationController()
     {
-        private readonly QuestionRepository _questionRepository;
-        private readonly UsersServices _usersServices;
-        private readonly TicketsRepository _ticketsRepository;
+        _questionRepository = new QuestionRepository();
+        _usersServices = new UsersServices();
+        _ticketsRepository = new TicketsRepository();
+    }
+    public IActionResult Index()
+    {
+        var user = _usersServices.GetUserFromCookie(HttpContext);
+        if (user == null)
+            return RedirectToAction("SignIn", "Users");
 
-        private const int ticketQuestionsCount = 20;
-        public ExaminationController()
+        var ticket = CreateRandomTicket(user);
+
+        return View(ticket);
+    }
+
+    private Ticket CreateRandomTicket(User user)
+    {
+        var ticketsCount = _questionRepository.GetQuestionsCount() / ticketQuestionsCount;
+        var random = new Random();
+        var ticketIndex = random.Next(0, ticketsCount);
+        var from = ticketIndex * ticketQuestionsCount;
+
+        var ticket = new Ticket(user.Id, from, ticketQuestionsCount);
+        _ticketsRepository.InsertTicket(ticket);
+
+        var id = _ticketsRepository.GetLastRowId();
+        ticket.Id = id;
+
+        return ticket;
+    }
+
+    public IActionResult Exam(int ticketId, int? questionId = null, int? choiceId = null)
+    {
+        var user = _usersServices.GetUserFromCookie(HttpContext);
+        if (user == null) return RedirectToAction("SignIn", "Users");
+
+        var ticket = _ticketsRepository.GetTicketById(ticketId, user.Id);
+
+        questionId = questionId ?? ticket.FromIndex;
+
+        if (ticket.FromIndex <= questionId && ticket.FromIndex + ticket.QuestionsCount > questionId)
         {
-            _questionRepository = new QuestionRepository();
-            _usersServices = new UsersServices();
-            _ticketsRepository = new TicketsRepository();
-        }
-        public IActionResult Index()
-        {
-            var user = _usersServices.GetUserFromCookie(HttpContext);
-            if (user == null)
-                return RedirectToAction("SignIn", "Users");
+            ViewBag.TicketData = _ticketsRepository.GetTicketDataById(ticket.Id);
 
-            var ticket = CreateRandomTicket(user);
+        var question = _questionRepository.GetQuestionById(questionId.Value);
 
-            return View(ticket);
-        }
+            var _ticketData = _ticketsRepository.GetTicketDataByQuIdAndTicId(ticketId, questionId.Value);
 
-        private Ticket CreateRandomTicket(User user)
-        {
-            var ticketsCount = _questionRepository.GetQuestionsCount() / ticketQuestionsCount;
-            var random = new Random();
-            var ticketIndex = random.Next(0, ticketsCount);
-            var from = ticketIndex * ticketQuestionsCount;
+            var _choiceId = (int?)null;
+            bool _answer = false;
 
-            var ticket = new Ticket(user.Id, from, ticketQuestionsCount);
-            _ticketsRepository.InsertTicket(ticket);
-
-            var id = _ticketsRepository.GetLastRowId();
-            ticket.Id = id;
-
-            return ticket;
-        }
-
-        public IActionResult Exam(int ticketId, int? questionId = null, int? choiceId = null)
-        {
-            var user = _usersServices.GetUserFromCookie(HttpContext);
-            if (user == null) return RedirectToAction("SignIn", "Users");
-
-            var ticket = _ticketsRepository.GetTicketById(ticketId, user.Id);
-
-            questionId = questionId ?? ticket.FromIndex;
-
-            if (ticket.FromIndex <= questionId && ticket.FromIndex + ticket.QuestionsCount > questionId)
+            if (_ticketData != null)
             {
-            questionId = questionId ?? 0;
-            ViewBag.Ticket = ticket;
+                _choiceId = _ticketData.ChoiceId;
+                _answer = _ticketData.Answer;
+            }
+            else if (choiceId != null)
+            {
+                var answer = question.Choices!.First(ch => ch.Id == choiceId).Answer;
 
-            var question = _questionRepository.GetQuestionById(questionId.Value);
-                if (choiceId != null)
+                var ticketData = new TicketData(ticketId, question.Id, choiceId.Value, answer);
+
+                _ticketsRepository.InsertTicketsData(ticketData);
+
+                _choiceId = choiceId;
+                _answer = answer;
+
+                if (_answer)
                 {
-                    ViewBag.ChoiceId = choiceId;
-                    ViewBag.Answer = question.Choices!.First(ch => ch.Id == choiceId).Answer;
+                _ticketsRepository.UpdateTicketQuestionsCorrectCount(ticket.Id);
                 }
 
-            return View(question);
+                if (ticket.QuestionsCount == _ticketsRepository.GetTicketAnswersCount(ticket.Id))
+                {
+                    return RedirectToAction("ExamResult", new {ticketId = ticket.Id});
+                }
             }
 
-            return NotFound();
-        }
+            ViewBag.Ticket = ticket;
+            ViewBag.ChoiceId = _choiceId;
+            ViewBag.Answer = _answer;
 
-        public IActionResult GetQuestionById(int questionId)
-        {
-            var question = _questionRepository.GetQuestionById(questionId);
             return View(question);
         }
+
+        return NotFound();
+    }
+
+    public IActionResult GetQuestionById(int questionId)
+    {
+        var question = _questionRepository.GetQuestionById(questionId);
+        return View(question);
+    }
+
+    public IActionResult ExamResult(int ticketId)
+    {
+        var user = _usersServices.GetUserFromCookie(HttpContext);
+        if (user == null)
+            return RedirectToAction("SignIn", "Users");
+
+        var ticket = _ticketsRepository.GetTicketById(ticketId, user.Id);
+        return View(ticket);
     }
 }
